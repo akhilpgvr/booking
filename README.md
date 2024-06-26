@@ -1,2 +1,2 @@
 # booking
-bus booking application for Bus Booking System(BBS)
+booking application for Bus Booking System(BBS)
