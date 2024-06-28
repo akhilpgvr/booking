@@ -5,6 +5,7 @@ import com.managementidea.booking.model.dtos.response.BusBookingResponse;
 import com.managementidea.booking.model.dtos.response.BusRoutesResponse;
 import com.managementidea.booking.model.entities.BusBookingEntity;
 import com.managementidea.booking.service.BookingService;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -22,6 +23,7 @@ public class BookingController {
     @Autowired
     private BookingService bookingService;
 
+    @Operation(summary = "Api for booking Journey for user", description = "")
     @PostMapping("/journey")
     public ResponseEntity<BusBookingResponse> bookJourney(@RequestParam String mobileNo, @RequestBody BookJourneyRequest request) {
 
@@ -30,6 +32,7 @@ public class BookingController {
         return new ResponseEntity<>(bookingService.bookJourney(request), HttpStatus.OK);
     }
 
+    @Operation(summary = "Api for filtering bus for user", description = "")
     @GetMapping("/get-buses")
     public ResponseEntity<List<BusRoutesResponse>> getBusesOnRoute(@RequestParam String origin
             , @RequestParam String destination, @RequestParam String departureDate) {
@@ -38,6 +41,7 @@ public class BookingController {
         return new ResponseEntity<>(bookingService.getBusesOnRoute(origin, destination, departureDate), HttpStatus.OK);
     }
 
+    @Operation(summary = "Api for getting booking history of user", description = "")
     @GetMapping("/history")
     public ResponseEntity<Page<BusBookingEntity>> getHistory(@RequestParam String mobileNo, @RequestParam int page, @RequestParam int size) {
 
