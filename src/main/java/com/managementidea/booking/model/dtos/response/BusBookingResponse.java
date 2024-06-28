@@ -1,24 +1,14 @@
-package com.managementidea.booking.model.entities;
+package com.managementidea.booking.model.dtos.response;
 
 import com.managementidea.booking.model.enums.GenderEnum;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Generated;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-
-import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Document(collection = "bus-booking")
-public class BusBookingEntity {
-
-    @Id
-    @Generated
-    private String id;
+public class BusBookingResponse {
 
     private String passengerName;
     private String age;
@@ -30,6 +20,4 @@ public class BusBookingEntity {
     private String departureDate;
     private int noOfSeats;
     private String charge;
-    private LocalDateTime createdOn;
-    private LocalDateTime lastUpdatedOn;
 }

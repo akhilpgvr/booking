@@ -1,6 +1,7 @@
 package com.managementidea.booking.controller;
 
 import com.managementidea.booking.model.dtos.request.BookJourneyRequest;
+import com.managementidea.booking.model.dtos.response.BusBookingResponse;
 import com.managementidea.booking.model.dtos.response.BusRoutesResponse;
 import com.managementidea.booking.service.BookingService;
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +21,7 @@ public class BookingController {
     private BookingService bookingService;
 
     @PostMapping("/journey")
-    public ResponseEntity<String> bookJourney(@RequestParam String mobileNo, @RequestBody BookJourneyRequest request) {
+    public ResponseEntity<BusBookingResponse> bookJourney(@RequestParam String mobileNo, @RequestBody BookJourneyRequest request) {
 
         request.setMobileNo(mobileNo);
         log.info("adding journey");
