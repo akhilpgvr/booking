@@ -3,9 +3,11 @@ package com.managementidea.booking.controller;
 import com.managementidea.booking.model.dtos.request.BookJourneyRequest;
 import com.managementidea.booking.model.dtos.response.BusBookingResponse;
 import com.managementidea.booking.model.dtos.response.BusRoutesResponse;
+import com.managementidea.booking.model.entities.BusBookingEntity;
 import com.managementidea.booking.service.BookingService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -37,9 +39,9 @@ public class BookingController {
     }
 
     @GetMapping("/history")
-    public ResponseEntity<List<BusRoutesResponse>> getHistory(@RequestParam String mobileNo, @RequestParam int page, @RequestParam int size) {
+    public ResponseEntity<Page<BusBookingEntity>> getHistory(@RequestParam String mobileNo, @RequestParam int page, @RequestParam int size) {
 
-        log.info("");
-        return null;
+        log.info("pagination to get the history");
+        return new ResponseEntity<>(bookingService.getHistory(mobileNo, page, size), HttpStatus.OK);
     }
 }

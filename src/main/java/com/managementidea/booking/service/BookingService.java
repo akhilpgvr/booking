@@ -13,6 +13,10 @@ import com.managementidea.booking.service.client.UserClient;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -65,6 +69,7 @@ public class BookingService {
             int seatsBooked = bookingRef.getNoOfSeats();
             bookingRef.setNoOfSeats(seatsBooked+ request.getNoOfSeats());
             bookingRef.setCharge(String.valueOf(Integer.parseInt(fare)+ Integer.parseInt(bookingRef.getCharge())));
+            bookingRef.setLastUpdatedOn(LocalDateTime.now());
             log.info("Saving booking for: {}", request.getBusRegNo());
             bookingRef = busBookingRepo.save(bookingRef);
             BeanUtils.copyProperties(bookingRef, busBookingResponse);
@@ -87,6 +92,13 @@ public class BookingService {
 
     public List<BusRoutesResponse> getBusesOnRoute(String origin, String destination, String departureDate) {
 
+        log.info("connecting bus application for getting BusesOnRoutes");
         return busClient.getBusesOnRoute(origin, destination, departureDate).getBody();
+    }
+
+    public Page<BusBookingEntity> getHistory(String mobileNo, int page, int size) {
+
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "departureDate"));
+        return busBookingRepo.findByMobileNo(mobileNo, pageable);
     }
 }
