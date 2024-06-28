@@ -64,7 +64,7 @@ public class BookingService {
             String fare = busClient.bookTicket(request).getBody();
             int seatsBooked = bookingRef.getNoOfSeats();
             bookingRef.setNoOfSeats(seatsBooked+ request.getNoOfSeats());
-            bookingRef.setCharge(fare+ bookingRef.getCharge());
+            bookingRef.setCharge(String.valueOf(Integer.parseInt(fare)+ Integer.parseInt(bookingRef.getCharge())));
             log.info("Saving booking for: {}", request.getBusRegNo());
             bookingRef = busBookingRepo.save(bookingRef);
             BeanUtils.copyProperties(bookingRef, busBookingResponse);
@@ -77,10 +77,10 @@ public class BookingService {
 
         Query query = new Query();
         query.addCriteria(new Criteria().andOperator(
-                Criteria.where("").is(request.getBusRegNo()),
-                Criteria.where("").is(request.getOrigin()),
-                Criteria.where("").is(request.getDestination()),
-                Criteria.where("").is(request.getDepartureDate())
+                Criteria.where("busRegNo").is(request.getBusRegNo()),
+                Criteria.where("origin").is(request.getOrigin()),
+                Criteria.where("destination").is(request.getDestination()),
+                Criteria.where("departureDate").is(request.getDepartureDate())
         ));
         return mongoTemplate.findOne(query, BusBookingEntity.class);
     }

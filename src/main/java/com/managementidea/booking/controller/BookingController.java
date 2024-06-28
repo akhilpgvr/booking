@@ -35,4 +35,11 @@ public class BookingController {
         log.info("fetching the info for origin: {}, destination: {}, departureDate: {}", origin, destination, departureDate);
         return new ResponseEntity<>(bookingService.getBusesOnRoute(origin, destination, departureDate), HttpStatus.OK);
     }
+
+    @GetMapping("/history")
+    public ResponseEntity<List<BusRoutesResponse>> getHistory(@RequestParam String mobileNo, @RequestParam int page, @RequestParam int size) {
+
+        log.info("");
+        return null;
+    }
 }
