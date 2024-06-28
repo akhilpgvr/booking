@@ -21,6 +21,7 @@ config:
   rest:
     service:
       user-url: "http://localhost:9990/user/mgmt/v1"
+      bus-url: "http://localhost:9991/bus/mgmt/v1"
 feign:
   client:
     config:
